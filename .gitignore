@@ -1,0 +1,4 @@
+vendor
+jira-search.alfred3workflow
+src/info.plist
+scripts/.env.sh
