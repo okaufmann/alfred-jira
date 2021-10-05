@@ -8,7 +8,6 @@ use Zttp\Zttp;
 class Client
 {
     protected $authCache;
-    protected $versionCache;
     protected $authContext;
     protected $version;
     protected $alfredVersion;
@@ -21,7 +20,9 @@ class Client
         $this->alfredVersion = getenv('alfred_version');
 
         if (! file_exists($this->cacheDir)) {
-            mkdir($this->cacheDir);
+            if (!mkdir($concurrentDirectory = $this->cacheDir) && !is_dir($concurrentDirectory)) {
+                throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+            }
         }
 
         if (! file_exists($this->authCache)) {
@@ -109,7 +110,7 @@ class Client
             if (isset($errorMap[$code])) {
                 $this->emitError($errorMap[$code]);
             } else {
-                $this->emitError('An unknown error occured, maybe try re-setting your API Key in Alfred');
+                $this->emitError('An unknown error occurred, maybe try re-setting your API Key in Alfred');
             }
 
             return true;

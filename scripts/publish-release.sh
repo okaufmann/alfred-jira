@@ -4,8 +4,6 @@ cd "$(dirname "$0")/.."
 
 newVersion=$1
 
-source scripts/.env.sh
-
 fileName="jira-search.alfred3workflow"
 
 echo "cleanup"

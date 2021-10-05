@@ -43,8 +43,9 @@ class Jira extends Client
 
     protected function searchResponse($json)
     {
+        $wf = new Workflow;
+
         if (isset($json['issues']) && count($json['issues']) > 0) {
-            $wf = new Workflow;
 
             foreach ($json['issues'] as $index => $issue) {
                 $previewUrl = $this->buildPreviewUrl($issue['key']);
@@ -60,8 +61,6 @@ class Jira extends Client
 
             return $wf->output();
         }
-
-        $wf = new Workflow;
 
         $wf->result()
             ->uid(time())
