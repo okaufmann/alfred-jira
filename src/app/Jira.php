@@ -55,6 +55,7 @@ class Jira extends Client
                     ->title($issue['key'])
                     ->subtitle($issue['fields']['summary'])
                     ->quicklookurl($previewUrl)
+                    ->copy($previewUrl)
                     ->arg($previewUrl)
                     ->icon('icon.png');
             }

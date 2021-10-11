@@ -128,11 +128,11 @@
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>j key</string>
+				<string>j auth</string>
 				<key>subtext</key>
 				<string>Sets the API key - `t key [Space ID],[Email],[API KEY]`</string>
 				<key>text</key>
-				<string>Set API Key</string>
+				<string>Set Jira Context</string>
 				<key>withspace</key>
 				<true/>
 			</dict>
@@ -252,7 +252,7 @@ echo $client-&gt;search('{query}');</string>
 				<key>subtext</key>
 				<string>Search Jira for given text</string>
 				<key>title</key>
-				<string>Title or Jira Ticket ID</string>
+				<string>Search Jira Ticket by Title or ID</string>
 				<key>type</key>
 				<integer>1</integer>
 				<key>withspace</key>
@@ -366,7 +366,7 @@ $client-&gt;updateWorkflow();</string>
 				<key>text</key>
 				<string>{query}</string>
 				<key>title</key>
-				<string>DeepL Translator Error</string>
+				<string>Jira Workflow Error</string>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.output.notification</string>
