@@ -130,9 +130,9 @@
 				<key>keyword</key>
 				<string>j auth</string>
 				<key>subtext</key>
-				<string>Sets the API key - `t key [Space ID],[Email],[API KEY]`</string>
+				<string>Sets the Auth Context - `j auth {your-atlassian-subdomain},{account-email},{token}`</string>
 				<key>text</key>
-				<string>Set Jira Context</string>
+				<string>Set Auth Context</string>
 				<key>withspace</key>
 				<true/>
 			</dict>
@@ -384,6 +384,7 @@ https://id.atlassian.com/manage-profile/security/api-tokens
 
 Following commands are available:
 
+- j auth {your-atlassian-subdomain},{account-email},{token} (Sets the Auth Context)
 - j {text} (Searches for the given text in your Jira instance)
 
 </string>
@@ -465,6 +466,6 @@ Following commands are available:
 	<key>version</key>
 	<string>{VERSION}</string>
 	<key>webaddress</key>
-	<string>https://oli-the.dev</string>
+	<string>https://github.com/okaufmann/alfred-jira</string>
 </dict>
 </plist>
