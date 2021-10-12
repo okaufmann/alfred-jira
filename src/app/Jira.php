@@ -66,6 +66,7 @@ class Jira extends Client
         $wf->result()
             ->uid(time())
             ->title('Nothing found...')
+            ->valid(false)
             ->icon('icon.png');
 
         return $wf->output();
