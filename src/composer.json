@@ -1,12 +1,12 @@
 {
-    "require": {
-        "php": "^7.3",
-        "kitetail/zttp": "^0.4.0",
+    "require-dev": {
+        "php": "^8.0",
+        "kitetail/zttp": "^0.6.0",
         "joetannenbaum/alfred-workflow": "^0.1.2",
         "symfony/polyfill-intl-normalizer": "^1.12",
         "carbondate/carbon": "^1.33",
         "spatie/ray": "^1.30",
-        "spatie/regex": "^1.0"
+        "spatie/regex": "^3.0"
     },
     "autoload": {
         "psr-4" : {
