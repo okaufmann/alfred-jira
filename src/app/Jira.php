@@ -17,7 +17,7 @@ class Jira extends Client
             'jql' => $jwpQuery,
         ];
 
-        $requestUrl = "{$baseUrl}?" . http_build_query($params);
+        $requestUrl = "{$baseUrl}?".http_build_query($params);
         $json = $this->makeRequest($requestUrl, 'get');
 
         return $this->searchResponse($json);
@@ -43,15 +43,14 @@ class Jira extends Client
 
     protected function searchResponse($json)
     {
-        $wf = new Workflow;
+        $wf = new Workflow();
 
         if (isset($json['issues']) && count($json['issues']) > 0) {
-
             foreach ($json['issues'] as $index => $issue) {
                 $previewUrl = $this->buildPreviewUrl($issue['key']);
 
                 $wf->result()
-                    ->uid($index . time())
+                    ->uid($index.time())
                     ->title($issue['key'])
                     ->subtitle($issue['fields']['summary'])
                     ->quicklookurl($previewUrl)
