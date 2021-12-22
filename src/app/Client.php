@@ -2,14 +2,17 @@
 
 namespace Okaufmann\AlfredJiraSearch;
 
+use Illuminate\Http\Client\Factory;
 use Spatie\Regex\Regex;
-use Zttp\Zttp;
 
 class Client
 {
     protected $authCache;
+
     protected $authContext;
+
     protected $version;
+
     protected $alfredVersion;
 
     public function __construct()
@@ -20,7 +23,7 @@ class Client
         $this->alfredVersion = getenv('alfred_version');
 
         if (! file_exists($this->cacheDir)) {
-            if (!mkdir($concurrentDirectory = $this->cacheDir) && !is_dir($concurrentDirectory)) {
+            if (! mkdir($concurrentDirectory = $this->cacheDir) && ! is_dir($concurrentDirectory)) {
                 throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
         }
@@ -39,7 +42,7 @@ class Client
         $this->authContext = [
             'spaceId' => $spaceId,
             'email' => $email,
-            'token' => $token
+            'token' => $token,
         ];
 
         file_put_contents($this->authCache, json_encode($this->authContext));
@@ -76,11 +79,10 @@ class Client
 
     protected function makeRequest($url, $method, $data = null, $headers = null)
     {
-        $response = Zttp::withBasicAuth($this->authContext['email'], $this->authContext['token'])
-            ->withHeaders([
-                'Accept' => 'application/json',
-                'User-Agent' => "Jira Workflow v{$this->version} hosted by Alfred(v{$this->alfredVersion})",
-            ])
+        $response = $this->getClientBase()
+            ->withBasicAuth($this->authContext['email'], $this->authContext['token'])
+            ->acceptJson()
+            ->withUserAgent("Jira Workflow v{$this->version} hosted by Alfred(v{$this->alfredVersion})")
             ->$method("{$this->buildApiBaseUrl()}$url", $data);
 
         if ($this->requestHasError($response->getStatusCode())) {
@@ -122,7 +124,7 @@ class Client
     public function buildQuery($search)
     {
         $match = Regex::match('/^(\w+-\d+).*$/', $search);
-        if($match->hasMatch()) {
+        if ($match->hasMatch()) {
             return "issueKey = '{$match->group(1)}'";
         }
 
@@ -132,5 +134,10 @@ class Client
     public function buildApiBaseUrl()
     {
         return "https://{$this->authContext['spaceId']}.atlassian.net";
+    }
+
+    public function getClientBase()
+    {
+        return new Factory();
     }
 }
